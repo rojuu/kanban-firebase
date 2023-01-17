@@ -5,13 +5,13 @@ import {
   DropResult,
   ResponderProvided,
 } from "react-beautiful-dnd";
-import { Board } from "../model";
+import { Board as BoardData } from "../model";
 import AddColumn from "./AddColumn";
 import Column from "./Column";
 import Logout from "./Logout";
 
 const Board = () => {
-  const initialData: Board = {
+  const initialData: BoardData = {
     tasks: {
       "1": {
         id: "1",
