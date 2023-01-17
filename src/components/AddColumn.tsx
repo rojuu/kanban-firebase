@@ -44,7 +44,7 @@ const AddColumn = (props: {
   };
 
   return (
-    <div>
+    <div className="flex flex-col bg-white shadow-sm shadow-slate-600 border border-gray-300 rounded-md p-4 m-2">
       {showNewColumnButton ? (
         <div onClick={() => setShowNewColumnButton(false)}>NEW COLUMN</div>
       ) : (

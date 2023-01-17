@@ -33,28 +33,30 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <p>
-          UserName{" "}
-          <input type="text" onChange={(e) => setUsername(e.target.value)} />
-        </p>
-        <p>
-          Password{" "}
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </p>
-        <p>
-          <button>Register</button>
-        </p>
-        <p>
-          Already have an account? <br />
-          <Link to="/login">Login here</Link>
-        </p>
-      </form>
+    <div className="flex items-center justify-center">
+      <div>
+        <h1>Register</h1>
+        <form onSubmit={handleSubmit}>
+          <p>
+            UserName{" "}
+            <input type="text" onChange={(e) => setUsername(e.target.value)} />
+          </p>
+          <p>
+            Password{" "}
+            <input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </p>
+          <p>
+            <button>Register</button>
+          </p>
+          <p>
+            Already have an account? <br />
+            <Link to="/login">Login here</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };

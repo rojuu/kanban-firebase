@@ -5,9 +5,13 @@ const logoutUser = (navigate: NavigateFunction) => {
   navigate("/login");
 };
 
-const Logout = () => {
+const Logout = (props: { className: string }) => {
   const navigate = useNavigate();
-  return <button onClick={() => logoutUser(navigate)}>Log out</button>;
+  return (
+    <button className={props.className} onClick={() => logoutUser(navigate)}>
+      Log out
+    </button>
+  );
 };
 
 export default Logout;

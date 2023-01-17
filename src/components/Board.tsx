@@ -61,8 +61,8 @@ const Board = () => {
       return;
     }
     if (
-      destination.droppableId !== source.droppableId ||
-      destination.index !== source.index
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
     ) {
       return;
     }
@@ -130,31 +130,45 @@ const Board = () => {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Logout />
-      <Droppable droppableId="all-columns" direction="horizontal" type="column">
-        {(provided) => (
-          <div {...provided.droppableProps} ref={provided.innerRef}>
-            {board.columnOrder.map((columnId, index) => {
-              const column = board.columns[columnId];
-              const tasks = column.taskIds.map((taskId) => board.tasks[taskId]);
-              return (
-                <Column
-                  key={column.id}
-                  column={column}
-                  tasks={tasks}
-                  index={index}
-                  board={board}
-                  setBoard={setBoard}
-                />
-              );
-            })}
-            {provided.placeholder}
-            <AddColumn board={board} setBoard={setBoard} />
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="flex flex-col items-end bg-gray-700">
+          <Logout className="p-1 m-1 rounded-md bg-gray-100" />
+        </div>
+        <Droppable
+          droppableId="all-columns"
+          direction="horizontal"
+          type="column"
+        >
+          {(provided) => (
+            <div
+              className="flex"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {board.columnOrder.map((columnId, index) => {
+                const column = board.columns[columnId];
+                const tasks = column.taskIds.map(
+                  (taskId) => board.tasks[taskId]
+                );
+                return (
+                  <Column
+                    key={column.id}
+                    column={column}
+                    tasks={tasks}
+                    index={index}
+                    board={board}
+                    setBoard={setBoard}
+                  />
+                );
+              })}
+              {provided.placeholder}
+              <AddColumn board={board} setBoard={setBoard} />
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </div>
   );
 };
 

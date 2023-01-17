@@ -39,8 +39,12 @@ const Column = (props: {
   return (
     <Draggable draggableId={props.column.id} index={props.index}>
       {(provided) => (
-        <div {...provided.draggableProps} ref={provided.innerRef}>
-          <h1 {...provided.dragHandleProps}>
+        <div
+          className="flex flex-col items-center bg-white shadow-sm shadow-slate-600 border border-gray-300 rounded-md p-4 m-2"
+          {...provided.draggableProps}
+          ref={provided.innerRef}
+        >
+          <h1 className="flex" {...provided.dragHandleProps}>
             {props.column.title}
             <span // delete button
               onClick={() => deleteColumn(props.column.id, props.index)}

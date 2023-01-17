@@ -32,29 +32,31 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <p>
-          UserName{" "}
-          <input type="text" onChange={(e) => setUsername(e.target.value)} />
-        </p>
-        <p>
-          Password{" "}
-          <input
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </p>
-        <p>
-          <button>Login</button>
-        </p>
-        <p>
-          Need an account?
-          <br />
-          <Link to="/register">Register here</Link>
-        </p>
-      </form>
+    <div className="flex items-center justify-center">
+      <div>
+        <h1>Login</h1>
+        <form onSubmit={handleSubmit}>
+          <p>
+            UserName{" "}
+            <input type="text" onChange={(e) => setUsername(e.target.value)} />
+          </p>
+          <p>
+            Password{" "}
+            <input
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </p>
+          <p>
+            <button>Login</button>
+          </p>
+          <p>
+            Need an account?
+            <br />
+            <Link to="/register">Register here</Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };

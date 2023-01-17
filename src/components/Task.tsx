@@ -34,6 +34,7 @@ const Task = (props: {
     <Draggable draggableId={props.task.id} index={props.index}>
       {(provided) => (
         <div
+          className="flex"
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
