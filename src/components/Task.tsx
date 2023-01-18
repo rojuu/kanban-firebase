@@ -1,4 +1,5 @@
 import { Draggable } from "react-beautiful-dnd";
+import DeleteIcon from "@mui/icons-material/DeleteOutline";
 import { Task as TaskData, Board as BoardData } from "../model";
 
 const Task = (props: {
@@ -34,19 +35,19 @@ const Task = (props: {
     <Draggable draggableId={props.task.id} index={props.index}>
       {(provided) => (
         <div
-          className="flex"
+          className="flex bg-white rounded-sm my-3 p-1 pl-2 py-3"
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
           {props.task.content}
           <span // delete
-            style={{ marginLeft: "auto" }}
+            className="ml-auto"
             onClick={() =>
               deleteTask(props.columnId, props.index, props.task.id)
             }
           >
-            DELETE {/* DeleteIcon outline*/}
+            <DeleteIcon className="ml-6" />
           </span>
         </div>
       )}

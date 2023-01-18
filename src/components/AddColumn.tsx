@@ -44,9 +44,14 @@ const AddColumn = (props: {
   };
 
   return (
-    <div className="flex flex-col bg-white shadow-sm shadow-slate-600 border border-gray-300 rounded-md p-4 m-2">
+    <div className="flex justify-center items-center bg-gray-50 shadow-sm shadow-slate-600 border border-gray-300 p-5 rounded-md m-2 h-8">
       {showNewColumnButton ? (
-        <div onClick={() => setShowNewColumnButton(false)}>NEW COLUMN</div>
+        <div
+          className="font-light"
+          onClick={() => setShowNewColumnButton(false)}
+        >
+          NEW COLUMN
+        </div>
       ) : (
         <form onSubmit={handleInputComplete}>
           <input

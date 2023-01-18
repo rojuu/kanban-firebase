@@ -13,37 +13,37 @@ import Logout from "./Logout";
 const Board = () => {
   const initialData: BoardData = {
     tasks: {
-      "1": {
-        id: "1",
+      "task-1": {
+        id: "task-1",
         content: "Make pasta",
       },
-      "2": {
-        id: "2",
+      "task-2": {
+        id: "task-2",
         content: "Make bread",
       },
-      "3": {
-        id: "3",
+      "task-3": {
+        id: "task-3",
         content: "Boil water",
       },
     },
     columns: {
-      "1": {
-        id: "1",
+      "column-1": {
+        id: "column-1",
         title: "Todo",
-        taskIds: ["1", "2"],
+        taskIds: ["task-1", "task-2"],
       },
-      "2": {
-        id: "2",
+      "column-2": {
+        id: "column-2",
         title: "Doing",
-        taskIds: ["3"],
+        taskIds: ["task-3"],
       },
-      "3": {
-        id: "3",
+      "column-3": {
+        id: "column-3",
         title: "Done",
         taskIds: [],
       },
     },
-    columnOrder: ["1", "2", "3"],
+    columnOrder: ["column-1", "column-2", "column-3"],
   };
   const [board, setBoard] = useState(initialData);
 
@@ -132,8 +132,9 @@ const Board = () => {
   return (
     <div>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className="flex flex-col items-end bg-gray-700">
-          <Logout className="p-1 m-1 rounded-md bg-gray-100" />
+        <div className="flex items-center bg-gray-700">
+          <span className="text-gray-100 p-4 text-2xl font-medium">Kanban</span>
+          <Logout className="p-1 px-2 mr-2 ml-auto rounded-md bg-gray-100" />
         </div>
         <Droppable
           droppableId="all-columns"

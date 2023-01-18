@@ -51,9 +51,12 @@ const AddTask = (props: {
   };
 
   return (
-    <div onClick={() => setShowNewTaskButton(false)}>
+    <div
+      className="bg-gray-200 mt-2 p-2"
+      onClick={() => setShowNewTaskButton(false)}
+    >
       {showNewTaskButton ? (
-        <div>ADD NEW TASK</div>
+        <div className="font-light">ADD NEW TASK</div>
       ) : (
         <form onSubmit={handleInputComplete}>
           <input

@@ -1,6 +1,7 @@
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import Task from "./Task";
 import AddTask from "./AddTask";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Task as TaskData,
   Board as BoardData,
@@ -40,16 +41,20 @@ const Column = (props: {
     <Draggable draggableId={props.column.id} index={props.index}>
       {(provided) => (
         <div
-          className="flex flex-col items-center bg-white shadow-sm shadow-slate-600 border border-gray-300 rounded-md p-4 m-2"
+          className="flex flex-col justify-start bg-gray-50 shadow-sm shadow-slate-600 border border-gray-300 rounded-md p-6 pt-3 m-2"
           {...provided.draggableProps}
           ref={provided.innerRef}
         >
-          <h1 className="flex" {...provided.dragHandleProps}>
+          <h1
+            className="flex items-start text-lg font-medium mt-0 mb-2"
+            {...provided.dragHandleProps}
+          >
             {props.column.title}
-            <span // delete button
+            <span
+              className="ml-auto"
               onClick={() => deleteColumn(props.column.id, props.index)}
             >
-              DELETE {/* <DeleteIcon /> */}
+              <DeleteIcon />
             </span>
           </h1>
           <Droppable droppableId={props.column.id} type="task">
