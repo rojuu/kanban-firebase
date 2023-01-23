@@ -52,7 +52,7 @@ const AddTask = (props: {
 
   return (
     <div
-      className="bg-gray-200 mt-2 p-2"
+      className="bg-gray-200 rounded-md mt-2 p-2"
       onClick={() => setShowNewTaskButton(false)}
     >
       {showNewTaskButton ? (

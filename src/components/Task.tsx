@@ -35,7 +35,7 @@ const Task = (props: {
     <Draggable draggableId={props.task.id} index={props.index}>
       {(provided) => (
         <div
-          className="flex bg-white rounded-sm my-3 p-1 pl-2 py-3"
+          className="flex bg-white border border-gray-100 rounded-md my-3 p-1 pl-2 py-3"
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}

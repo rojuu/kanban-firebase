@@ -1,9 +1,11 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Board from "./components/Board";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import { auth } from "./firebase";
 
 const App = () => {
+  const user = auth.currentUser;
   return (
     <>
       <BrowserRouter>
@@ -13,8 +15,7 @@ const App = () => {
           <Route
             path="/"
             element={
-              // !token ? <Navigate to="/login" /> : <Board token={token}/>
-              <Board />
+              !user ? <Navigate to="/login" /> : <Board /*user={user}*/ />
             }
           />
         </Routes>
