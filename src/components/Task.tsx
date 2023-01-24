@@ -1,20 +1,20 @@
-import { Draggable } from "react-beautiful-dnd";
 import DeleteIcon from "@mui/icons-material/DeleteOutline";
-import { Task as TaskData, Board as BoardData } from "../model";
+import { Draggable } from "react-beautiful-dnd";
+import { type Board as BoardData, type Task as TaskData } from "../model";
 
-const Task = (props: {
+function Task(props: {
   key: string;
   task: TaskData;
   index: number;
   columnId: string;
   board: BoardData;
   setBoard: (board: BoardData) => void;
-}) => {
+}) {
   const deleteTask = (columnId: string, index: number, taskId: string) => {
     const column = props.board.columns[columnId];
     const newTaskIds = Array.from(column.taskIds);
     newTaskIds.splice(index, 1);
-    const tasks = props.board.tasks;
+    const { tasks } = props.board;
     const { [taskId]: oldTask, ...newTasks } = tasks;
     props.setBoard({
       ...props.board,
@@ -35,7 +35,7 @@ const Task = (props: {
     <Draggable draggableId={props.task.id} index={props.index}>
       {(provided) => (
         <div
-          className="flex bg-white border border-gray-100 rounded-md my-3 p-1 pl-2 py-3"
+          className="my-3 flex rounded-md border border-gray-100 bg-white p-1 py-3 pl-2"
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
@@ -43,9 +43,9 @@ const Task = (props: {
           {props.task.content}
           <span // delete
             className="ml-auto"
-            onClick={() =>
-              deleteTask(props.columnId, props.index, props.task.id)
-            }
+            onClick={() => {
+              deleteTask(props.columnId, props.index, props.task.id);
+            }}
           >
             <DeleteIcon className="ml-6" />
           </span>
@@ -53,6 +53,6 @@ const Task = (props: {
       )}
     </Draggable>
   );
-};
+}
 
 export default Task;

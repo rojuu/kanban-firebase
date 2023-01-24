@@ -2,15 +2,15 @@ import { useState } from "react";
 import {
   DragDropContext,
   Droppable,
-  DropResult,
-  ResponderProvided,
+  type DropResult,
+  type ResponderProvided,
 } from "react-beautiful-dnd";
-import { Board as BoardData } from "../model";
+import { type Board as BoardData } from "../model";
 import AddColumn from "./AddColumn";
 import Column from "./Column";
 import Logout from "./Logout";
 
-const Board = () => {
+function Board() {
   const initialData: BoardData = {
     tasks: {
       "task-1": {
@@ -57,7 +57,7 @@ const Board = () => {
 
   const onDragEnd = (result: DropResult, _: ResponderProvided): void => {
     const { destination, source, draggableId, type } = result;
-    if (!destination) {
+    if (destination == null) {
       return;
     }
     if (
@@ -133,8 +133,8 @@ const Board = () => {
     <div>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="flex items-center bg-gray-700">
-          <span className="text-gray-100 p-4 text-2xl font-medium">Kanban</span>
-          <Logout className="p-1 px-2 mr-2 ml-auto rounded-md bg-gray-100" />
+          <span className="p-4 text-2xl font-medium text-gray-100">Kanban</span>
+          <Logout className="mr-2 ml-auto rounded-md bg-gray-100 p-1 px-2" />
         </div>
         <Droppable
           droppableId="all-columns"
@@ -171,6 +171,6 @@ const Board = () => {
       </DragDropContext>
     </div>
   );
-};
+}
 
 export default Board;

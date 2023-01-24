@@ -1,7 +1,7 @@
-import { FormEvent, useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Register = () => {
+function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -18,8 +18,8 @@ const Register = () => {
 
   const createUser = async () => {
     const formData = {
-      username: username,
-      password: password,
+      username,
+      password,
     };
 
     const response = await fetch("/users", {
@@ -39,13 +39,20 @@ const Register = () => {
         <form onSubmit={handleSubmit}>
           <p>
             UserName{" "}
-            <input type="text" onChange={(e) => setUsername(e.target.value)} />
+            <input
+              type="text"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
+            />
           </p>
           <p>
             Password{" "}
             <input
               type="password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
           </p>
           <p>
@@ -59,6 +66,6 @@ const Register = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Register;

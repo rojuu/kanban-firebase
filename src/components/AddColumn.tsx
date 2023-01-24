@@ -1,11 +1,8 @@
-import { useState, useEffect, useRef, FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { v4 as uuid } from "uuid";
-import { Board } from "../model";
+import { type Board } from "../model";
 
-const AddColumn = (props: {
-  board: Board;
-  setBoard: (board: Board) => void;
-}) => {
+function AddColumn(props: { board: Board; setBoard: (board: Board) => void }) {
   const [showNewColumnButton, setShowNewColumnButton] = useState(true);
   const [value, setValue] = useState("");
 
@@ -30,7 +27,7 @@ const AddColumn = (props: {
     newColumnOrder.push(newColumnId);
     const newColumn = {
       id: newColumnId,
-      title: title,
+      title,
       taskIds: [],
     };
     props.setBoard({
@@ -44,11 +41,13 @@ const AddColumn = (props: {
   };
 
   return (
-    <div className="flex justify-center items-center bg-gray-50 shadow-sm shadow-slate-600 border border-gray-300 p-5 rounded-md m-2 h-8">
+    <div className="m-2 flex h-8 items-center justify-center rounded-md border border-gray-300 bg-gray-50 p-5 shadow-sm shadow-slate-600">
       {showNewColumnButton ? (
         <div
           className="font-light"
-          onClick={() => setShowNewColumnButton(false)}
+          onClick={() => {
+            setShowNewColumnButton(false);
+          }}
         >
           NEW COLUMN
         </div>
@@ -57,7 +56,9 @@ const AddColumn = (props: {
           <input
             type="text"
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
             onBlur={() => {
               if (!showNewColumnButton) {
                 setValue("");
@@ -70,6 +71,6 @@ const AddColumn = (props: {
       )}
     </div>
   );
-};
+}
 
 export default AddColumn;

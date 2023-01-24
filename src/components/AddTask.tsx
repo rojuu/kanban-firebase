@@ -1,12 +1,12 @@
-import { Board } from "../model";
-import { useState, useEffect, useRef, FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { v4 as uuid } from "uuid";
+import { type Board } from "../model";
 
-const AddTask = (props: {
+function AddTask(props: {
   board: Board;
   columnId: string;
   setBoard: (board: Board) => void;
-}) => {
+}) {
   const [showNewTaskButton, setShowNewTaskButton] = useState(true);
   const [value, setValue] = useState("");
 
@@ -32,7 +32,7 @@ const AddTask = (props: {
     newTaskIds.push(newTaskId);
     const newTask = {
       id: newTaskId,
-      content: content,
+      content,
     };
     props.setBoard({
       ...props.board,
@@ -52,8 +52,10 @@ const AddTask = (props: {
 
   return (
     <div
-      className="bg-gray-200 rounded-md mt-2 p-2"
-      onClick={() => setShowNewTaskButton(false)}
+      className="mt-2 rounded-md bg-gray-200 p-2"
+      onClick={() => {
+        setShowNewTaskButton(false);
+      }}
     >
       {showNewTaskButton ? (
         <div className="font-light">ADD NEW TASK</div>
@@ -62,7 +64,9 @@ const AddTask = (props: {
           <input
             type="text"
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
             onBlur={() => {
               if (!showNewTaskButton) {
                 setValue("");
@@ -75,6 +79,6 @@ const AddTask = (props: {
       )}
     </div>
   );
-};
+}
 
 export default AddTask;

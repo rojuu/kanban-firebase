@@ -1,7 +1,7 @@
-import { FormEvent, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, type FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -13,34 +13,35 @@ const Login = () => {
 
   return (
     <section>
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
-          <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
-              Sign in to your account
+      <div className="mx-auto flex h-screen flex-col items-center justify-center px-6 py-8">
+        <div className="mt-0 w-full max-w-md rounded-lg bg-white shadow">
+          <div className="space-y-4 p-6">
+            <h1 className="text-2xl font-bold leading-tight tracking-tight text-gray-900">
+              Sign in
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 "
+                  className="mb-2 block text-sm font-medium text-gray-900 "
                 >
-                  Your email
+                  Email
                 </label>
                 <input
                   type="email"
                   name="email"
                   id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                  placeholder="name@email.com"
-                  onChange={(e) => setEmail(e.target.value)}
+                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900"
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                   required
                 />
               </div>
               <div>
                 <label
                   htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 "
+                  className="mb-2 block text-sm font-medium text-gray-900 "
                 >
                   Password
                 </label>
@@ -48,47 +49,24 @@ const Login = () => {
                   type="password"
                   name="password"
                   id="password"
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                  onChange={(e) => setPassword(e.target.value)}
+                  className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900"
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                   required
                 />
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h-5">
-                    <input
-                      id="remember"
-                      aria-describedby="remember"
-                      type="checkbox"
-                      className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 "
-                      required
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label htmlFor="remember" className="text-gray-500 ">
-                      Remember me
-                    </label>
-                  </div>
-                </div>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-primary-600 hover:underline "
-                >
-                  Forgot password?
-                </a>
-              </div>
               <button
                 type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-300 w-full rounded-lg border-2 px-5 py-2.5 text-center text-sm font-medium text-black shadow-sm focus:outline-none focus:ring-4"
               >
                 Sign in
               </button>
               <p className="text-sm font-light text-gray-500">
-                Don't have an account yet?{" "}
+                {"Don't have an account yet?"}
                 <a
                   href="/register"
-                  className="font-medium text-primary-600 hover:underline"
+                  className="text-primary-600 font-medium hover:underline"
                 >
                   Sign up
                 </a>
@@ -98,20 +76,7 @@ const Login = () => {
         </div>
       </div>
     </section>
-
-    // <form onSubmit={handleSubmit}>
-    //   <input
-    //     className="border"
-    //     type="text"
-    //
-    //   />
-    //   <input
-    //     className="border"
-    //     type="password"
-    //     onChange={(e) => setPassword(e.target.value)}
-    //   />
-    // </form>
   );
-};
+}
 
 export default Login;

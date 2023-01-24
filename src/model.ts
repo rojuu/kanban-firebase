@@ -3,22 +3,18 @@ export interface Task {
   content: string;
 }
 
-export interface Tasks {
-  [index: string]: Task;
-}
+export type Tasks = Record<string, Task>;
 
 export interface Column {
   id: string;
   title: string;
-  taskIds: Array<string>;
+  taskIds: string[];
 }
 
-export interface Columns {
-  [index: string]: Column;
-}
+export type Columns = Record<string, Column>;
 
 export interface Board {
   tasks: Tasks;
   columns: Columns;
-  columnOrder: Array<string>;
+  columnOrder: string[];
 }

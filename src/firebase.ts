@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
+import { EmailAuthProvider, getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, EmailAuthProvider } from "firebase/auth";
 import { auth as authUI } from "firebaseui";
 
 const firebaseConfig = {
