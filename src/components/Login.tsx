@@ -1,15 +1,32 @@
-import { useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useCallback, useContext, useState, type FormEvent } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/Auth";
+import { auth } from "../firebase";
 
-function Login() {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    navigate("/");
-  };
+  const handleSubmit = useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        navigate("/");
+      } catch (error) {
+        alert(error);
+      }
+    },
+    [email, password, navigate]
+  );
+
+  const user = useContext(AuthContext);
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <section>
@@ -29,8 +46,6 @@ function Login() {
                 </label>
                 <input
                   type="email"
-                  name="email"
-                  id="email"
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900"
                   onChange={(e) => {
                     setEmail(e.target.value);
@@ -47,8 +62,6 @@ function Login() {
                 </label>
                 <input
                   type="password"
-                  name="password"
-                  id="password"
                   className="focus:ring-primary-600 focus:border-primary-600 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900"
                   onChange={(e) => {
                     setPassword(e.target.value);
@@ -63,7 +76,7 @@ function Login() {
                 Sign in
               </button>
               <p className="text-sm font-light text-gray-500">
-                {"Don't have an account yet?"}
+                {"Don't have an account yet? "}
                 <a
                   href="/register"
                   className="text-primary-600 font-medium hover:underline"
@@ -77,6 +90,6 @@ function Login() {
       </div>
     </section>
   );
-}
+};
 
 export default Login;

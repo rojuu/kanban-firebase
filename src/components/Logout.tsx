@@ -1,7 +1,9 @@
+import { signOut } from "firebase/auth";
 import { useNavigate, type NavigateFunction } from "react-router-dom";
+import { auth } from "../firebase";
 
 const logoutUser = (navigate: NavigateFunction) => {
-  localStorage.removeItem("token");
+  signOut(auth);
   navigate("/login");
 };
 

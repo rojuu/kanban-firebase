@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { EmailAuthProvider, getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { auth as authUI } from "firebaseui";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -12,12 +11,7 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_APP_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export const auth = getAuth(app);
-
-const ui = new authUI.AuthUI(auth);
-ui.start("#firebaseui-auth-container", {
-  signInOptions: [EmailAuthProvider.PROVIDER_ID],
-});
