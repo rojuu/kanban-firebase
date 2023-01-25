@@ -1,59 +1,63 @@
-import { useState } from "react";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { useContext, useEffect, useMemo, useState } from "react";
 import {
   DragDropContext,
   Droppable,
   type DropResult,
   type ResponderProvided,
 } from "react-beautiful-dnd";
-import { type Board as BoardData } from "../model";
+import { AuthContext } from "../contexts/Auth";
+import { db } from "../firebase";
+import { type Board as BoardData, type Task as TaskData } from "../model";
 import AddColumn from "./AddColumn";
 import Column from "./Column";
 import Logout from "./Logout";
 
 function Board() {
-  const initialData: BoardData = {
-    tasks: {
-      "task-1": {
-        id: "task-1",
-        content: "Make pasta",
-      },
-      "task-2": {
-        id: "task-2",
-        content: "Make bread",
-      },
-      "task-3": {
-        id: "task-3",
-        content: "Boil water",
-      },
-    },
-    columns: {
-      "column-1": {
-        id: "column-1",
-        title: "Todo",
-        taskIds: ["task-1", "task-2"],
-      },
-      "column-2": {
-        id: "column-2",
-        title: "Doing",
-        taskIds: ["task-3"],
-      },
-      "column-3": {
-        id: "column-3",
-        title: "Done",
-        taskIds: [],
-      },
-    },
-    columnOrder: ["column-1", "column-2", "column-3"],
-  };
-  const [board, setBoard] = useState(initialData);
+  const user = useContext(AuthContext);
+  const emptyBoard = useMemo<BoardData>(() => {
+    return {
+      tasks: {},
+      columns: {},
+      columnOrder: [],
+    };
+  }, []);
+  const [boardFetched, setBoardFetched] = useState(false);
+  const [board, setBoard] = useState(emptyBoard);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // useEffect(() => {
-  //   fetchBoard(props.token).then((data) => setBoard(data));
-  // }, [props.token]);
+  useEffect(() => {
+    if (!user) return;
+    const fetchData = async () => {
+      try {
+        const boardsRef = collection(db, "boards");
+        const boardDoc = await getDoc(doc(boardsRef, user.uid));
+        if (boardDoc.exists()) {
+          setBoard({ ...(boardDoc.data() as BoardData) });
+        } else {
+          setBoard(emptyBoard);
+        }
+        setBoardFetched(true);
+      } catch (e) {
+        setErrorMessage(`Fetching data failed: ${e}`);
+      }
+    };
+    fetchData();
+  }, [emptyBoard, user]);
 
-  // useEffect(() => {
-  //   saveBoard(board, props.token);
-  // }, [board, props.token]);
+  useEffect(() => {
+    if (!boardFetched) return;
+    if (!user) return;
+    const storeData = async () => {
+      try {
+        const boardsRef = collection(db, "boards");
+        await setDoc(doc(boardsRef, user.uid), board);
+      } catch (error) {
+        setErrorMessage(`Storing data failed: ${error}`);
+      }
+    };
+    storeData();
+  }, [board, boardFetched, user]);
 
   const onDragEnd = (result: DropResult, _: ResponderProvided): void => {
     const { destination, source, draggableId, type } = result;
@@ -129,6 +133,14 @@ function Board() {
     }
   };
 
+  if (errorMessage !== "") {
+    return <div className="text-red-600">{`ERROR: ${errorMessage}`}</div>;
+  }
+
+  if (!boardFetched) {
+    return <div>Fetching data...</div>;
+  }
+
   return (
     <div>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -149,7 +161,7 @@ function Board() {
             >
               {board.columnOrder.map((columnId, index) => {
                 const column = board.columns[columnId];
-                const tasks = column.taskIds.map(
+                const tasks: Array<TaskData> = column.taskIds.map(
                   (taskId) => board.tasks[taskId]
                 );
                 return (
